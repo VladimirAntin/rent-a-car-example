@@ -1,6 +1,6 @@
 import {FC, memo} from 'react';
 
-const LogoIcon: FC<Icon> = ({width = 40, height = 40, className}) => (
+const LogoIcon: FC<Icon> = ({width = 40, height = 40}) => (
   <svg
     xmlns={'http://www.w3.org/2000/svg'}
     width={width}
