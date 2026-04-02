@@ -3,77 +3,21 @@
 import {motion} from 'framer-motion';
 import Link from 'next/link';
 import CheckIcon from '@icons/CheckIcon';
-import FuelIcon from '@icons/FuelIcon';
-import GaugeIcon from '@icons/GaugeIcon';
-import UsersIcon from '@icons/UsersIcon';
-import {BookingForm} from '@components/BookingForm';
+import BookingForm from '@components/BookingForm';
 import ArrowIcon from '@icons/ArrowIcon';
-import CalendarIcon from '@icons/CalendarIcon';
-import type {Car} from '@data/cars';
+import rentalConditions from '@data/rentalConditions';
+import {useTranslation} from 'react-i18next';
+import carSpecs from '@data/car-specs';
+import Icon from '@icons/Icon';
+import {memo} from 'react';
 
 interface CarDetailClientProps {
   car: Car;
   similarCars: Car[];
 }
 
-export default function CarDetailClient({car, similarCars}: CarDetailClientProps) {
-  const specs = [
-    {
-      icon: (
-        <UsersIcon
-          width={20}
-          height={20}
-          className={'text-blue-600'}
-        />
-      ),
-      label: 'Broj sedišta',
-      value: `${car.seats} sedišta`,
-    },
-    {
-      icon: (
-        <GaugeIcon
-          width={20}
-          height={20}
-          className={'text-blue-600'}
-        />
-      ),
-      label: 'Menjač',
-      value: car.transmission === 'automatic' ? 'Automatski' : 'Manuelni',
-    },
-    {
-      icon: (
-        <FuelIcon
-          width={20}
-          height={20}
-          className={'text-blue-600'}
-        />
-      ),
-      label: 'Gorivo',
-      value: car.fuelType.charAt(0).toUpperCase() + car.fuelType.slice(1),
-    },
-    {
-      icon: (
-        <CalendarIcon
-          width={20}
-          height={20}
-          className={'text-blue-600'}
-        />
-      ),
-      label: 'Godište',
-      value: car.year.toString(),
-    },
-  ];
-
-  const rentalConditions = [
-    'Minimalna starost 21 godina i vozačka dozvola B kategorije',
-    'Kasko osiguranje uključeno u cenu',
-    'Besplatna kilometraža do 200km dnevno',
-    '24/7 tehnička podrška',
-    'Preuzimanje vozila na aerodromu Nikola Tesla',
-    'Dostava vozila na vašu adresu u Beogradu',
-    'Mogućnost besplatnog otkazivanja 48h pre rezervacije',
-  ];
-
+const CarDetailClient = ({car, similarCars}: CarDetailClientProps) => {
+  const {t} = useTranslation('cars');
   return (
     <div className={'bg-gray-50 py-12'}>
       <div className={'mx-auto max-w-7xl px-4'}>
@@ -87,7 +31,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
             height={16}
             className={'rotate-[-90deg]'}
           />
-          {'Nazad na vozila'}
+          {t('Nazad na vozila')}
         </Link>
 
         <div className={'grid gap-8 lg:grid-cols-3'}>
@@ -107,7 +51,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                     className={
                       'absolute top-4 right-4 rounded-full bg-red-500 px-4 py-2 font-semibold text-white'
                     }>
-                    {'Rezervisano'}
+                    {t('Rezervisano')}
                   </div>
                 )}
               </div>
@@ -125,14 +69,14 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                           'text-4xl font-bold text-gray-900'
                         }>{`${car.pricePerDay}€`}</span>
                     </div>
-                    <span className={'text-gray-500'}>{'/ dan'}</span>
+                    <span className={'text-gray-500'}>{t(' / dan')}</span>
                   </div>
                 </div>
 
-                <p className={'mb-8 text-gray-700'}>{car.description}</p>
+                <p className={'mb-8 text-gray-700'}>{t(car.description)}</p>
 
                 <div className={'mb-8 grid gap-4 sm:grid-cols-2'}>
-                  {specs.map(spec => (
+                  {carSpecs(car, t).map(spec => (
                     <div
                       key={spec.label}
                       className={'flex items-center gap-3 rounded-lg border bg-gray-50 p-4'}>
@@ -140,18 +84,25 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                         className={
                           'flex h-10 w-10 items-center justify-center rounded-full bg-blue-100'
                         }>
-                        {spec.icon}
+                        <Icon
+                          width={24}
+                          height={24}
+                          name={spec.icon}
+                          className={'text-blue-600'}
+                        />
                       </div>
                       <div>
                         <div className={'text-sm text-gray-600'}>{spec.label}</div>
-                        <div className={'font-semibold text-gray-900'}>{spec.value}</div>
+                        <div className={'font-semibold text-gray-900 capitalize'}>{spec.value}</div>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 <div>
-                  <h2 className={'mb-4 text-xl font-semibold text-gray-900'}>{'Karakteristike'}</h2>
+                  <h2 className={'mb-4 text-xl font-semibold text-gray-900'}>
+                    {t('Karakteristike')}
+                  </h2>
                   <div className={'grid gap-3 sm:grid-cols-2'}>
                     {car.features.map(feature => (
                       <div
@@ -162,7 +113,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                           height={20}
                           className={'text-green-600'}
                         />
-                        <span className={'text-gray-700'}>{feature}</span>
+                        <span className={'text-gray-700'}>{t(feature)}</span>
                       </div>
                     ))}
                   </div>
@@ -175,7 +126,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
               animate={{opacity: 1, y: 0}}
               transition={{delay: 0.2}}
               className={'mt-8 rounded-xl border bg-white p-8 shadow-sm'}>
-              <h2 className={'mb-4 text-xl font-semibold text-gray-900'}>{'Uslovi najma'}</h2>
+              <h2 className={'mb-4 text-xl font-semibold text-gray-900'}>{t('Uslovi najma')}</h2>
               <ul className={'space-y-3 text-gray-700'}>
                 {rentalConditions.map(condition => (
                   <li
@@ -186,7 +137,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                       height={20}
                       className={'mt-0.5 shrink-0 text-blue-600'}
                     />
-                    <span>{condition}</span>
+                    <span>{t(condition)}</span>
                   </li>
                 ))}
               </ul>
@@ -207,7 +158,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
             whileInView={{opacity: 1, y: 0}}
             viewport={{once: true}}
             className={'mt-16'}>
-            <h2 className={'mb-6 text-2xl font-bold text-gray-900'}>{'Slična vozila'}</h2>
+            <h2 className={'mb-6 text-2xl font-bold text-gray-900'}>{t('Slična vozila')}</h2>
             <div className={'grid gap-6 sm:grid-cols-2 lg:grid-cols-3'}>
               {similarCars.map(similarCar => (
                 <Link
@@ -232,7 +183,7 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
                         className={
                           'text-xl font-bold text-gray-900'
                         }>{`${similarCar.pricePerDay}€`}</span>
-                      <span className={'text-sm text-gray-500'}>{' / dan'}</span>
+                      <span className={'text-sm text-gray-500'}>{t(' / dan')}</span>
                     </div>
                   </div>
                 </Link>
@@ -243,4 +194,6 @@ export default function CarDetailClient({car, similarCars}: CarDetailClientProps
       </div>
     </div>
   );
-}
+};
+
+export default memo(CarDetailClient);

@@ -1,0 +1,46 @@
+const contact = {
+  'Rezerviši {{carName}}': 'Reserviere {{carName}}',
+  'Rezerviši vozilo': 'Fahrzeug reservieren',
+  'Uspešno poslato!': 'Erfolgreich gesendet!',
+  'Kontaktiraćemo vas u najkraćem roku sa detaljima o rezervaciji.':
+    'Wir werden Sie in Kürze mit Details zur Reservierung kontaktieren.',
+  'Ime i prezime *': 'Vollständiger Name *',
+  'Email *': 'E-Mail-Adresse *',
+  'Telefon *': 'Telefonnummer *',
+  'Datum preuzimanja *': 'Abholdatum *',
+  'Datum vraćanja *': 'Rückgabedatum *',
+  Poruka: 'Nachricht',
+  'Dodatne napomene ili pitanja...': 'Zusätzliche Hinweise oder Fragen...',
+  'Pošalji zahtev': 'Anfrage senden',
+  'Tema *': 'Betreff *',
+  'Izaberite temu': 'Thema auswählen',
+  'Napišite vašu poruku ovde...': 'Schreiben Sie Ihre Nachricht hier...',
+  'Pošalji poruku': 'Nachricht senden',
+  'Pošaljite nam poruku': 'Schicken Sie uns eine Nachricht',
+  Adresa: 'Adresse',
+  Telefon: 'Telefon',
+  Email: 'E-Mail',
+  'Radno vreme': 'Öffnungszeiten',
+  'Pon - Pet: 08:00 - 20:00\nSub: 09:00 - 17:00\nNed: Zatvoreno':
+    'Mo - Fr: 08:00 - 20:00\nSa: 09:00 - 17:00\nSo: Geschlossen',
+  Rezervacija: 'Reservierung',
+  Informacije: 'Informationen',
+  Podrška: 'Support',
+  Ostalo: 'Sonstiges',
+  'Kontaktirajte nas': 'Kontaktieren Sie uns',
+  'Imate pitanje ili želite da rezervišete vozilo? Tu smo da vam pomognemo!':
+    'Haben Sie eine Frage oder möchten Sie ein Fahrzeug reservieren? Wir helfen Ihnen gerne!',
+  'Ime je obavezno': 'Name ist erforderlich',
+  'Email je obavezan': 'E-Mail ist erforderlich',
+  'Unesite validan email': 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+  'Telefon je obavezan': 'Telefonnummer ist erforderlich',
+  'Tema je obavezna': 'Betreff ist erforderlich',
+  'Poruka je obavezna': 'Nachricht ist erforderlich',
+  'Datum preuzimanja je obavezan': 'Abholdatum ist erforderlich',
+  'Datum vraćanja je obavezan': 'Rückgabedatum ist erforderlich',
+  'Hvala na poruci!': 'Vielen Dank für Ihre Nachricht!',
+  'Kontaktiraćemo vas u najkraćem mogućem roku.':
+    'Wir werden uns so schnell wie möglich bei Ihnen melden.',
+};
+
+export default contact;

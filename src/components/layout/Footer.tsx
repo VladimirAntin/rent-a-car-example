@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import FacebookIcon from '@icons/FacebookIcon';
 import TwitterIcon from '@icons/TwitterIcon';
@@ -5,25 +6,31 @@ import MailIcon from '@icons/MailIcon';
 import PhoneIcon from '@icons/PhoneIcon';
 import LocationIcon from '@icons/LocationIcon';
 import InstagramIcon from '@icons/InstagramIcon';
+import LogoIcon from '@icons/LogoIcon';
+import {cn} from '@/utils/CN';
+import {useTranslation} from 'react-i18next';
+import navLinks from '@data/nav-links';
+import services from '@data/services';
+import {memo} from 'react';
 
-export function Footer() {
+const Footer = () => {
+  const {t} = useTranslation();
   return (
     <footer className={'border-t bg-gray-50'}>
       <div className={'mx-auto max-w-7xl px-4 py-12'}>
         <div className={'grid gap-8 md:grid-cols-2 lg:grid-cols-4'}>
           <div>
-            <div className={'mb-4'}>
-              <img
-                src={'/logo.svg'}
-                alt={'Rent a Car'}
-                width={180}
-                height={48}
-              />
+            <div className={'mb-4 flex flex-row items-center'}>
+              <LogoIcon />
+              <div className={cn('flex-start flex flex-col', 'ml-2')}>
+                <span className={'text-xl font-bold text-gray-800'}>{t('Rent a Car')}</span>
+                <span className={'text-black/40'}>{t('Iznajmljivanje auta')}</span>
+              </div>
             </div>
             <p className={'text-sm text-gray-600'}>
-              {
-                'Vaš pouzdan partner za iznajmljivanje automobila. Širok spektar vozila i vrhunska usluga.'
-              }
+              {t(
+                'Vaš pouzdan partner za iznajmljivanje automobila. Širok spektar vozila i vrhunska usluga.',
+              )}
             </p>
             <div className={'mt-4 flex gap-4'}>
               <a
@@ -57,19 +64,14 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className={'mb-4 font-semibold text-gray-900'}>{'Brzi linkovi'}</h3>
+            <h3 className={'mb-4 font-semibold text-gray-900'}>{t('Brzi linkovi')}</h3>
             <ul className={'space-y-2 text-sm'}>
-              {[
-                {href: '/', label: 'Početna'},
-                {href: '/cars', label: 'Vozila'},
-                {href: '/about', label: 'O nama'},
-                {href: '/contact', label: 'Kontakt'},
-              ].map(link => (
+              {navLinks.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className={'text-gray-600 transition-colors hover:text-blue-600'}>
-                    {link.label}
+                    {t(link.label)}
                   </Link>
                 </li>
               ))}
@@ -77,22 +79,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className={'mb-4 font-semibold text-gray-900'}>{'Usluge'}</h3>
+            <h3 className={'mb-4 font-semibold text-gray-900'}>{t('Usluge')}</h3>
             <ul className={'space-y-2 text-sm text-gray-600'}>
-              {[
-                'Dnevni najam',
-                'Nedeljni najam',
-                'Mesečni najam',
-                'Korporativni najam',
-                'Dostava vozila',
-              ].map(service => (
-                <li key={service}>{service}</li>
+              {services.map(service => (
+                <li key={service}>{t(service)}</li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className={'mb-4 font-semibold text-gray-900'}>{'Kontakt'}</h3>
+            <h3 className={'mb-4 font-semibold text-gray-900'}>{t('Kontakt')}</h3>
             <ul className={'space-y-3 text-sm'}>
               <li className={'flex items-start gap-2 text-gray-600'}>
                 <LocationIcon
@@ -131,9 +127,13 @@ export function Footer() {
         </div>
 
         <div className={'mt-12 border-t pt-8 text-center text-sm text-gray-600'}>
-          <p>{`© ${new Date().getFullYear()} Rent a Car. Sva prava zadržana.`}</p>
+          <p>
+            {`© ${new Date().getFullYear()} Rent a Car.`} {t('Sva prava zadržana.')}
+          </p>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default memo(Footer);

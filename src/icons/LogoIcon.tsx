@@ -1,54 +1,94 @@
 import {FC, memo} from 'react';
 
-// Ketering Smederevo — fork & knife logo
 const LogoIcon: FC<Icon> = ({width = 40, height = 40, className}) => (
   <svg
+    xmlns={'http://www.w3.org/2000/svg'}
     width={width}
     height={height}
-    viewBox={'0 0 24 24'}
-    fill={'none'}
-    xmlns={'http://www.w3.org/2000/svg'}
-    className={className}>
-    <g
-      stroke={'currentColor'}
-      strokeWidth={'1.5'}
-      strokeLinecap={'round'}
-      strokeLinejoin={'round'}>
-      {/* Knife — right side */}
-      <line
-        x1={'17'}
-        y1={'2'}
-        x2={'17'}
-        y2={'22'}
-      />
-      <path d={'M17 6c2.5-.5 3.8 1 3.8 3.5S19.5 13.5 17 12'} />
-      {/* Fork — left side */}
-      <line
-        x1={'7'}
-        y1={'8'}
-        x2={'7'}
-        y2={'22'}
-      />
-      <line
-        x1={'5'}
-        y1={'2'}
-        x2={'5'}
-        y2={'5'}
-      />
-      <line
-        x1={'7'}
-        y1={'2'}
-        x2={'7'}
-        y2={'5'}
-      />
-      <line
-        x1={'9'}
-        y1={'2'}
-        x2={'9'}
-        y2={'5'}
-      />
-      <path d={'M5 5c0 1.1.9 2 2 2s2-.9 2-2'} />
-    </g>
+    viewBox={'0 0 48 48'}
+    fill={'none'}>
+    <defs>
+      <linearGradient
+        id={'logoGrad'}
+        x1={'0'}
+        y1={'0'}
+        x2={'48'}
+        y2={'48'}
+        gradientUnits={'userSpaceOnUse'}>
+        <stop stopColor={'#2563eb'} />
+        <stop
+          offset={'1'}
+          stopColor={'#1e40af'}
+        />
+      </linearGradient>
+    </defs>
+
+    <rect
+      width={'48'}
+      height={'48'}
+      rx={'10'}
+      fill={'url(#logoGrad)'}
+    />
+
+    <rect
+      x={'7'}
+      y={'26'}
+      width={'34'}
+      height={'12'}
+      rx={'2'}
+      fill={'white'}
+    />
+
+    <path
+      d={'M12 26 L16 17 L32 17 L36 26 Z'}
+      fill={'white'}
+    />
+
+    <path
+      d={'M17 17.5 L15 25 L23 25 L23 17.5 Z'}
+      fill={'#1e40af'}
+      fillOpacity={'0.45'}
+      rx={'1'}
+    />
+    <path
+      d={'M23 17.5 L23 25 L33 25 L31 17.5 Z'}
+      fill={'#1e40af'}
+      fillOpacity={'0.45'}
+    />
+
+    <rect
+      x={'7'}
+      y={'35'}
+      width={'34'}
+      height={'2'}
+      rx={'1'}
+      fill={'#dbeafe'}
+    />
+
+    <circle
+      cx={'15'}
+      cy={'38'}
+      r={'5'}
+      fill={'#1e40af'}
+    />
+    <circle
+      cx={'15'}
+      cy={'38'}
+      r={'2.5'}
+      fill={'white'}
+    />
+    <circle
+      cx={'33'}
+      cy={'38'}
+      r={'5'}
+      fill={'#1e40af'}
+    />
+    <circle
+      cx={'33'}
+      cy={'38'}
+      r={'2.5'}
+      fill={'white'}
+    />
   </svg>
 );
 

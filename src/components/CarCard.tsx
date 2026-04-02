@@ -5,14 +5,16 @@ import Link from 'next/link';
 import CarIcon from '@icons/CarIcon';
 import CheckIcon from '@icons/CheckIcon';
 import UsersIcon from '@icons/UsersIcon';
-import type {Car as CarType} from '@data/cars';
+import {useTranslation} from 'react-i18next';
+import {memo} from 'react';
 
-interface CarCardProps {
-  car: CarType;
+type CarCardProps = {
+  car: Car;
   index?: number;
-}
+};
 
-export function CarCard({car, index = 0}: CarCardProps) {
+const CarCard = ({car, index = 0}: CarCardProps) => {
+  const {t} = useTranslation('cars');
   return (
     <Link href={`/cars/${car.id}`}>
       <motion.div
@@ -27,7 +29,7 @@ export function CarCard({car, index = 0}: CarCardProps) {
             className={
               'absolute top-3 right-3 z-10 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white'
             }>
-            {'Rezervisano'}
+            {t('Rezervisano')}
           </div>
         )}
 
@@ -58,14 +60,14 @@ export function CarCard({car, index = 0}: CarCardProps) {
                 width={16}
                 height={16}
               />
-              <span>{`${car.seats} sedišta`}</span>
+              <span>{t('{{seats}} sedišta', {seats: car.seats})}</span>
             </div>
             <div className={'flex items-center gap-2'}>
               <CarIcon
                 width={16}
                 height={16}
               />
-              <span>{car.transmission === 'automatic' ? 'Automatski' : 'Manuelni'}</span>
+              <span>{t(car.transmission === 'automatic' ? 'Automatski' : 'Manuelni')}</span>
             </div>
           </div>
 
@@ -81,7 +83,7 @@ export function CarCard({car, index = 0}: CarCardProps) {
                   height={12}
                   className={'text-green-500'}
                 />
-                {feature}
+                {t(feature)}
               </span>
             ))}
           </div>
@@ -89,7 +91,7 @@ export function CarCard({car, index = 0}: CarCardProps) {
           <div className={'mb-4 border-t pt-4'}>
             <div className={'flex items-baseline gap-1'}>
               <span className={'text-2xl font-bold text-gray-900'}>{`${car.pricePerDay}€`}</span>
-              <span className={'text-sm text-gray-500'}>{' / dan'}</span>
+              <span className={'text-sm text-gray-500'}>{t(' / dan')}</span>
             </div>
           </div>
 
@@ -99,10 +101,12 @@ export function CarCard({car, index = 0}: CarCardProps) {
                 ? 'block w-full rounded-lg bg-blue-600 px-4 py-2 text-center font-medium text-white transition-colors hover:bg-blue-700'
                 : 'block w-full cursor-not-allowed rounded-lg bg-gray-200 px-4 py-2 text-center font-medium text-gray-500'
             }>
-            {car.available ? 'Pogledaj detalje' : 'Nije dostupno'}
+            {t(car.available ? 'Pogledaj detalje' : 'Nije dostupno')}
           </div>
         </div>
       </motion.div>
     </Link>
   );
-}
+};
+
+export default memo(CarCard);

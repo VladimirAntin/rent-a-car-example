@@ -1,12 +1,13 @@
 'use client';
 
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {motion} from 'framer-motion';
 import FilterIcon from '@icons/FilterIcon';
-import {CarCard} from '@components/CarCard';
+import CarCard from '@components/CarCard';
 import {cars, categories, transmissionTypes} from '@data/cars';
+import {useTranslation} from 'react-i18next';
 
-export default function VehiclesPage() {
+const VehiclesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedTransmission, setSelectedTransmission] = useState('all');
   const [maxPrice, setMaxPrice] = useState(500);
@@ -19,6 +20,8 @@ export default function VehiclesPage() {
     const priceMatch = car.pricePerDay >= 0 && car.pricePerDay <= maxPrice;
     return categoryMatch && transmissionMatch && priceMatch;
   });
+
+  const {t} = useTranslation('cars');
 
   const handleReset = () => {
     setSelectedCategory('all');
@@ -34,10 +37,11 @@ export default function VehiclesPage() {
           animate={{opacity: 1, y: 0}}
           className={'mb-8'}>
           <h1 className={'mb-4 text-4xl font-bold text-gray-900'}>{'Naša vozila'}</h1>
-          <p
-            className={
-              'text-gray-600'
-            }>{`Pronađite savršeno vozilo za vaše potrebe. ${filteredCars.length} dostupnih vozila`}</p>
+          <p className={'text-gray-600'}>
+            {t(`Pronađite savršeno vozilo za vaše potrebe. {{count}} dostupnih vozila`, {
+              count: filteredCars.length,
+            })}
+          </p>
         </motion.div>
 
         <div className={'mb-8 flex items-center justify-between'}>
@@ -50,7 +54,7 @@ export default function VehiclesPage() {
               width={16}
               height={16}
             />
-            {'Filteri'}
+            {t('Filteri')}
           </button>
         </div>
 
@@ -61,7 +65,7 @@ export default function VehiclesPage() {
             className={showFilters ? 'block' : 'hidden lg:block'}>
             <div className={'space-y-6 rounded-xl border bg-white p-6'}>
               <div>
-                <h3 className={'mb-3 font-semibold text-gray-900'}>{'Kategorija'}</h3>
+                <h3 className={'mb-3 font-semibold text-gray-900'}>{t('Kategorija')}</h3>
                 <div className={'space-y-2'}>
                   {categories.map(category => (
                     <label
@@ -75,14 +79,14 @@ export default function VehiclesPage() {
                         onChange={e => setSelectedCategory(e.target.value)}
                         className={'h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500'}
                       />
-                      <span className={'text-sm text-gray-700'}>{category.label}</span>
+                      <span className={'text-sm text-gray-700'}>{t(category.label)}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
               <div className={'border-t pt-6'}>
-                <h3 className={'mb-3 font-semibold text-gray-900'}>{'Menjač'}</h3>
+                <h3 className={'mb-3 font-semibold text-gray-900'}>{t('Menjač')}</h3>
                 <div className={'space-y-2'}>
                   {transmissionTypes.map(transmission => (
                     <label
@@ -96,14 +100,14 @@ export default function VehiclesPage() {
                         onChange={e => setSelectedTransmission(e.target.value)}
                         className={'h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500'}
                       />
-                      <span className={'text-sm text-gray-700'}>{transmission.label}</span>
+                      <span className={'text-sm text-gray-700'}>{t(transmission.label)}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
               <div className={'border-t pt-6'}>
-                <h3 className={'mb-3 font-semibold text-gray-900'}>{'Cena po danu'}</h3>
+                <h3 className={'mb-3 font-semibold text-gray-900'}>{t('Cena po danu')}</h3>
                 <div className={'space-y-3'}>
                   <input
                     type={'range'}
@@ -126,7 +130,7 @@ export default function VehiclesPage() {
                 className={
                   'w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50'
                 }>
-                {'Resetuj filtere'}
+                {t('Resetuj filtere')}
               </div>
             </div>
           </motion.aside>
@@ -145,9 +149,9 @@ export default function VehiclesPage() {
             ) : (
               <div className={'rounded-xl border bg-white p-12 text-center'}>
                 <p className={'text-gray-600'}>
-                  {
-                    'Nema vozila koja odgovaraju zadatim filterima. Pokušajte sa drugačijim parametrima.'
-                  }
+                  {t(
+                    'Nema vozila koja odgovaraju zadatim filterima. Pokušajte sa drugačijim parametrima.',
+                  )}
                 </p>
               </div>
             )}
@@ -156,4 +160,6 @@ export default function VehiclesPage() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(VehiclesPage);

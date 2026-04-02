@@ -1,8 +1,9 @@
 import type {Metadata} from 'next';
-import type {ReactNode} from 'react';
-import {Header} from '@components/Header';
-import {Footer} from '@components/Footer';
+import {memo, ReactNode} from 'react';
+import Header from '@components/layout/Header';
+import Footer from '@components/layout/Footer';
 import './globals.css';
+import '@i18n/localeConfig';
 
 export const metadata: Metadata = {
   title: 'Rent a Car — Iznajmljivanje vozila Beograd',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   icons: {icon: '/favicon.png', apple: '/favicon.png'},
 };
 
-export default function RootLayout({children}: {children: ReactNode}) {
+const RootLayout = ({children}: {children: ReactNode}) => {
   return (
     <html lang={'sr'}>
       <body className={'flex min-h-screen flex-col'}>
@@ -21,4 +22,6 @@ export default function RootLayout({children}: {children: ReactNode}) {
       </body>
     </html>
   );
-}
+};
+
+export default memo(RootLayout);

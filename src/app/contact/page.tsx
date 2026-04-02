@@ -1,74 +1,23 @@
 'use client';
 
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {motion} from 'framer-motion';
 import {useForm} from 'react-hook-form';
-import ClockIcon from '@icons/ClockIcon';
-import PhoneIcon from '@icons/PhoneIcon';
-import MailIcon from '@icons/MailIcon';
-import LocationIcon from '@icons/LocationIcon';
 import SendIcon from '@icons/SendIcon';
+import Icon from '@icons/Icon';
+import contactInfo from '@data/contact-info';
+import {useTranslation} from 'react-i18next';
 
-interface ContactFormData {
+type ContactFormData = {
   name: string;
   email: string;
   phone: string;
   subject: string;
   message: string;
-}
+};
 
-const contactInfo = [
-  {
-    icon: (
-      <LocationIcon
-        width={24}
-        height={24}
-        className={'text-blue-600'}
-      />
-    ),
-    title: 'Adresa',
-    content: 'Glavna 45, 11080 Zemun, Beograd',
-    link: undefined as string | undefined,
-  },
-  {
-    icon: (
-      <PhoneIcon
-        width={24}
-        height={24}
-        className={'text-blue-600'}
-      />
-    ),
-    title: 'Telefon',
-    content: '+381 11 234 5678',
-    link: 'tel:+381112345678',
-  },
-  {
-    icon: (
-      <MailIcon
-        width={24}
-        height={24}
-        className={'text-blue-600'}
-      />
-    ),
-    title: 'Email',
-    content: 'info@rentacar.rs',
-    link: 'mailto:info@rentacar.rs',
-  },
-  {
-    icon: (
-      <ClockIcon
-        width={24}
-        height={24}
-        className={'text-blue-600'}
-      />
-    ),
-    title: 'Radno vreme',
-    content: 'Pon - Pet: 08:00 - 20:00\nSub: 09:00 - 17:00\nNed: Zatvoreno',
-    link: undefined as string | undefined,
-  },
-];
-
-export default function ContactPage() {
+const ContactPage = () => {
+  const {t} = useTranslation('contact');
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -93,10 +42,10 @@ export default function ContactPage() {
           animate={{opacity: 1, y: 0}}
           className={'mb-12 text-center'}>
           <h1 className={'mb-4 text-4xl font-bold text-gray-900 md:text-5xl'}>
-            {'Kontaktirajte nas'}
+            {t('Kontaktirajte nas')}
           </h1>
           <p className={'mx-auto max-w-2xl text-lg text-gray-600'}>
-            {'Imate pitanje ili želite da rezervišete vozilo? Tu smo da vam pomognemo!'}
+            {t('Imate pitanje ili želite da rezervišete vozilo? Tu smo da vam pomognemo!')}
           </p>
         </motion.div>
 
@@ -116,9 +65,14 @@ export default function ContactPage() {
                   className={
                     'mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-100'
                   }>
-                  {info.icon}
+                  <Icon
+                    width={24}
+                    height={24}
+                    name={info.icon}
+                    className={'text-blue-600'}
+                  />
                 </div>
-                <h3 className={'mb-2 font-semibold text-gray-900'}>{info.title}</h3>
+                <h3 className={'mb-2 font-semibold text-gray-900'}>{t(info.title)}</h3>
                 {info.link ? (
                   <a
                     href={info.link}
@@ -126,7 +80,7 @@ export default function ContactPage() {
                     {info.content}
                   </a>
                 ) : (
-                  <p className={'whitespace-pre-line text-gray-600'}>{info.content}</p>
+                  <p className={'whitespace-pre-line text-gray-600'}>{t(info.content)}</p>
                 )}
               </motion.div>
             ))}
@@ -137,7 +91,9 @@ export default function ContactPage() {
             animate={{opacity: 1, x: 0}}
             className={'lg:col-span-2'}>
             <div className={'rounded-xl border bg-white p-8 shadow-sm'}>
-              <h2 className={'mb-6 text-2xl font-bold text-gray-900'}>{'Pošaljite nam poruku'}</h2>
+              <h2 className={'mb-6 text-2xl font-bold text-gray-900'}>
+                {t('Pošaljite nam poruku')}
+              </h2>
 
               {submitted ? (
                 <motion.div
@@ -146,10 +102,10 @@ export default function ContactPage() {
                   className={'rounded-lg bg-green-50 p-8 text-center'}>
                   <div className={'mb-3 text-5xl'}>{'✓'}</div>
                   <h3 className={'mb-2 text-xl font-semibold text-green-900'}>
-                    {'Hvala na poruci!'}
+                    {t('Hvala na poruci!')}
                   </h3>
                   <p className={'text-green-700'}>
-                    {'Kontaktiraćemo vas u najkraćem mogućem roku.'}
+                    {t('Kontaktiraćemo vas u najkraćem mogućem roku.')}
                   </p>
                 </motion.div>
               ) : (
@@ -161,12 +117,12 @@ export default function ContactPage() {
                       <label
                         htmlFor={'contact-name'}
                         className={'mb-2 block font-medium text-gray-700'}>
-                        {'Ime i prezime *'}
+                        {t('Ime i prezime *')}
                       </label>
                       <input
                         id={'contact-name'}
                         type={'text'}
-                        {...register('name', {required: 'Ime je obavezno'})}
+                        {...register('name', {required: t('Ime je obavezno')})}
                         className={
                           'w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
                         }
@@ -180,16 +136,16 @@ export default function ContactPage() {
                       <label
                         htmlFor={'contact-email'}
                         className={'mb-2 block font-medium text-gray-700'}>
-                        {'Email *'}
+                        {t('Email *')}
                       </label>
                       <input
                         id={'contact-email'}
                         type={'email'}
                         {...register('email', {
-                          required: 'Email je obavezan',
+                          required: t('Email je obavezan'),
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'Unesite validan email',
+                            message: t('Unesite validan email'),
                           },
                         })}
                         className={
@@ -207,12 +163,12 @@ export default function ContactPage() {
                       <label
                         htmlFor={'contact-phone'}
                         className={'mb-2 block font-medium text-gray-700'}>
-                        {'Telefon *'}
+                        {t('Telefon *')}
                       </label>
                       <input
                         id={'contact-phone'}
                         type={'tel'}
-                        {...register('phone', {required: 'Telefon je obavezan'})}
+                        {...register('phone', {required: t('Telefon je obavezan')})}
                         className={
                           'w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
                         }
@@ -226,19 +182,19 @@ export default function ContactPage() {
                       <label
                         htmlFor={'contact-subject'}
                         className={'mb-2 block font-medium text-gray-700'}>
-                        {'Tema *'}
+                        {t('Tema *')}
                       </label>
                       <select
                         id={'contact-subject'}
-                        {...register('subject', {required: 'Tema je obavezna'})}
+                        {...register('subject', {required: t('Tema je obavezna')})}
                         className={
                           'w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
                         }>
-                        <option value={''}>{'Izaberite temu'}</option>
-                        <option value={'reservation'}>{'Rezervacija'}</option>
-                        <option value={'info'}>{'Informacije'}</option>
-                        <option value={'support'}>{'Podrška'}</option>
-                        <option value={'other'}>{'Ostalo'}</option>
+                        <option value={''}>{t('Izaberite temu')}</option>
+                        <option value={'reservation'}>{t('Rezervacija')}</option>
+                        <option value={'info'}>{t('Informacije')}</option>
+                        <option value={'support'}>{t('Podrška')}</option>
+                        <option value={'other'}>{t('Ostalo')}</option>
                       </select>
                       {errors.subject ? (
                         <p className={'mt-1 text-sm text-red-600'}>{errors.subject.message}</p>
@@ -250,16 +206,16 @@ export default function ContactPage() {
                     <label
                       htmlFor={'contact-message'}
                       className={'mb-2 block font-medium text-gray-700'}>
-                      {'Poruka *'}
+                      {t('Poruka *')}
                     </label>
                     <textarea
                       id={'contact-message'}
-                      {...register('message', {required: 'Poruka je obavezna'})}
+                      {...register('message', {required: t('Poruka je obavezna')})}
                       rows={6}
                       className={
                         'w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
                       }
-                      placeholder={'Napišite vašu poruku ovde...'}
+                      placeholder={t('Napišite vašu poruku ovde...')}
                     />
                     {errors.message ? (
                       <p className={'mt-1 text-sm text-red-600'}>{errors.message.message}</p>
@@ -275,7 +231,7 @@ export default function ContactPage() {
                       width={20}
                       height={20}
                     />
-                    {'Pošalji poruku'}
+                    {t('Pošalji poruku')}
                   </button>
                 </form>
               )}
@@ -306,4 +262,6 @@ export default function ContactPage() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(ContactPage);

@@ -1,6 +1,7 @@
 import {notFound} from 'next/navigation';
 import {cars} from '@data/cars';
 import CarDetailClient from './CarDetailClient';
+import {memo} from 'react';
 
 export function generateStaticParams() {
   return cars.map(car => ({id: car.id}));
@@ -10,7 +11,7 @@ interface PageProps {
   params: Promise<{id: string}>;
 }
 
-export default async function VehicleDetailPage({params}: PageProps) {
+const VehicleDetailPage = async ({params}: PageProps) => {
   const {id} = await params;
   const car = cars.find(c => c.id === id);
 
@@ -26,4 +27,6 @@ export default async function VehicleDetailPage({params}: PageProps) {
       similarCars={similarCars}
     />
   );
-}
+};
+
+export default memo(VehicleDetailPage);

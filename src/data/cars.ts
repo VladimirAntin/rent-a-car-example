@@ -1,19 +1,3 @@
-export interface Car {
-  id: string;
-  name: string;
-  brand: string;
-  category: 'luxury' | 'suv' | 'sedan' | 'compact' | 'sports' | 'family';
-  year: number;
-  image: string;
-  pricePerDay: number;
-  seats: number;
-  transmission: 'automatic' | 'manual';
-  fuelType: 'petrol' | 'diesel' | 'electric' | 'hybrid';
-  features: string[];
-  available: boolean;
-  description: string;
-}
-
 export const cars: Car[] = [
   {
     id: '1',
@@ -26,7 +10,7 @@ export const cars: Car[] = [
     pricePerDay: 350,
     seats: 4,
     transmission: 'automatic',
-    fuelType: 'petrol',
+    fuelType: 'benzin',
     features: [
       'Klima',
       'Kožna sedišta',
@@ -49,7 +33,7 @@ export const cars: Car[] = [
     pricePerDay: 280,
     seats: 5,
     transmission: 'automatic',
-    fuelType: 'diesel',
+    fuelType: 'dizel',
     features: [
       '4x4',
       'Panorama krov',
@@ -72,7 +56,7 @@ export const cars: Car[] = [
     pricePerDay: 180,
     seats: 5,
     transmission: 'automatic',
-    fuelType: 'hybrid',
+    fuelType: 'hibrid',
     features: ['Klima', 'Harman Kardon audio', 'LED farovi', 'Keyless entry', 'Head-up display'],
     available: true,
     description:
@@ -89,7 +73,7 @@ export const cars: Car[] = [
     pricePerDay: 60,
     seats: 5,
     transmission: 'manual',
-    fuelType: 'diesel',
+    fuelType: 'dizel',
     features: ['Klima', 'Bluetooth', 'USB', 'Parking senzori', 'Centralno zaključavanje'],
     available: true,
     description:
@@ -106,8 +90,8 @@ export const cars: Car[] = [
     pricePerDay: 400,
     seats: 2,
     transmission: 'automatic',
-    fuelType: 'petrol',
-    features: ['Откидни кров', 'Masažna sedišta', 'Performance mode'],
+    fuelType: 'benzin',
+    features: ['Krov na otvaranje', 'Performance mode'],
     available: true,
     description:
       'Luksuzni sportski roadster za nezaboravna iskustva. Uživajte u vožnji uz vetar u kosi.',
@@ -122,7 +106,7 @@ export const cars: Car[] = [
     pricePerDay: 200,
     seats: 7,
     transmission: 'automatic',
-    fuelType: 'diesel',
+    fuelType: 'dizel',
     features: ['Klima - dve zone', 'TV sistem', 'Frižider', 'Električna vrata', 'ISOFIX'],
     available: true,
     description:
@@ -139,7 +123,7 @@ export const cars: Car[] = [
     pricePerDay: 150,
     seats: 5,
     transmission: 'automatic',
-    fuelType: 'electric',
+    fuelType: 'električni',
     features: [
       'Autopilot',
       'Premium interior',
@@ -161,7 +145,7 @@ export const cars: Car[] = [
     pricePerDay: 220,
     seats: 7,
     transmission: 'automatic',
-    fuelType: 'diesel',
+    fuelType: 'dizel',
     features: [
       'Quattro 4x4',
       'Virtual cockpit',

@@ -1,25 +1,26 @@
 'use client';
-
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {motion} from 'framer-motion';
 import SendIcon from '@icons/SendIcon';
 import CalendarIcon from '@icons/CalendarIcon';
+import {useTranslation} from 'react-i18next';
 
-interface BookingFormData {
+type BookingFormData = {
   name: string;
   email: string;
   phone: string;
   pickupDate: string;
   returnDate: string;
   message: string;
-}
+};
 
-interface BookingFormProps {
+type BookingFormProps = {
   carName?: string;
-}
+};
 
-export function BookingForm({carName}: BookingFormProps) {
+const BookingForm = ({carName}: BookingFormProps) => {
+  const {t} = useTranslation('contact');
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -41,7 +42,7 @@ export function BookingForm({carName}: BookingFormProps) {
   return (
     <div className={'rounded-xl border bg-white p-6 shadow-sm'}>
       <h3 className={'mb-6 text-xl font-semibold text-gray-900'}>
-        {carName ? `Rezerviši ${carName}` : 'Rezerviši vozilo'}
+        {carName ? t('Rezerviši {{carName}}', {carName: carName}) : t('Rezerviši vozilo')}
       </h3>
 
       {submitted ? (
@@ -50,9 +51,9 @@ export function BookingForm({carName}: BookingFormProps) {
           animate={{opacity: 1, scale: 1}}
           className={'rounded-lg bg-green-50 p-6 text-center'}>
           <div className={'mb-2 text-4xl'}>{'✓'}</div>
-          <h4 className={'mb-2 font-semibold text-green-900'}>{'Uspešno poslato!'}</h4>
+          <h4 className={'mb-2 font-semibold text-green-900'}>{t('Uspešno poslato!')}</h4>
           <p className={'text-sm text-green-700'}>
-            {'Kontaktiraćemo vas u najkraćem roku sa detaljima o rezervaciji.'}
+            {t('Kontaktiraćemo vas u najkraćem roku sa detaljima o rezervaciji.')}
           </p>
         </motion.div>
       ) : (
@@ -63,12 +64,12 @@ export function BookingForm({carName}: BookingFormProps) {
             <label
               htmlFor={'booking-name'}
               className={'mb-1 block text-sm font-medium text-gray-700'}>
-              {'Ime i prezime *'}
+              {t('Ime i prezime *')}
             </label>
             <input
               id={'booking-name'}
               type={'text'}
-              {...register('name', {required: 'Ime je obavezno'})}
+              {...register('name', {required: t('Ime je obavezno')})}
               className={
                 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
               }
@@ -82,16 +83,16 @@ export function BookingForm({carName}: BookingFormProps) {
             <label
               htmlFor={'booking-email'}
               className={'mb-1 block text-sm font-medium text-gray-700'}>
-              {'Email *'}
+              {t('Email *')}
             </label>
             <input
               id={'booking-email'}
               type={'email'}
               {...register('email', {
-                required: 'Email je obavezan',
+                required: t('Email je obavezan'),
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Unesite validan email',
+                  message: t('Unesite validan email'),
                 },
               })}
               className={
@@ -107,12 +108,12 @@ export function BookingForm({carName}: BookingFormProps) {
             <label
               htmlFor={'booking-phone'}
               className={'mb-1 block text-sm font-medium text-gray-700'}>
-              {'Telefon *'}
+              {t('Telefon *')}
             </label>
             <input
               id={'booking-phone'}
               type={'tel'}
-              {...register('phone', {required: 'Telefon je obavezan'})}
+              {...register('phone', {required: t('Telefon je obavezan')})}
               className={
                 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
               }
@@ -131,12 +132,12 @@ export function BookingForm({carName}: BookingFormProps) {
                   width={14}
                   height={14}
                 />
-                {'Datum preuzimanja *'}
+                {t('Datum preuzimanja *')}
               </label>
               <input
                 id={'booking-pickup'}
                 type={'date'}
-                {...register('pickupDate', {required: 'Datum preuzimanja je obavezan'})}
+                {...register('pickupDate', {required: t('Datum preuzimanja je obavezan')})}
                 min={today}
                 className={
                   'w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
@@ -155,12 +156,12 @@ export function BookingForm({carName}: BookingFormProps) {
                   width={14}
                   height={14}
                 />
-                {'Datum vraćanja *'}
+                {t('Datum vraćanja *')}
               </label>
               <input
                 id={'booking-return'}
                 type={'date'}
-                {...register('returnDate', {required: 'Datum vraćanja je obavezan'})}
+                {...register('returnDate', {required: t('Datum vraćanja je obavezan')})}
                 min={today}
                 className={
                   'w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
@@ -176,7 +177,7 @@ export function BookingForm({carName}: BookingFormProps) {
             <label
               htmlFor={'booking-message'}
               className={'mb-1 block text-sm font-medium text-gray-700'}>
-              {'Poruka'}
+              {t('Poruka')}
             </label>
             <textarea
               id={'booking-message'}
@@ -185,7 +186,7 @@ export function BookingForm({carName}: BookingFormProps) {
               className={
                 'w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none'
               }
-              placeholder={'Dodatne napomene ili pitanja...'}
+              placeholder={t('Dodatne napomene ili pitanja...')}
             />
           </div>
 
@@ -198,10 +199,12 @@ export function BookingForm({carName}: BookingFormProps) {
               width={16}
               height={16}
             />
-            {'Pošalji zahtev'}
+            {t('Pošalji zahtev')}
           </button>
         </form>
       )}
     </div>
   );
-}
+};
+
+export default memo(BookingForm);
